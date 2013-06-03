@@ -16,21 +16,25 @@ public class Stack{
 		return null;
 	}
 	public void print(){
-		System.out.println("Stack Data:");
+		System.out.println("Stack Data:\nTOP");
 		Node current = this.head;
 		while(current != null){
 			System.out.println("Data = "+current.getData());
 			current = current.getNext();
 		}
+		System.out.println("END");
 	}
 	public static void main(String[] args){
 		Stack s = new Stack();
 		s.push("Test1");
 		s.push(2);
-		s.push("Test2");
+		s.push(3.14);
 		s.print();
-		System.out.println("Stack returned: "+s.pop().getData());
-		s.print();
-		System.out.println("END");
+		Node returned = s.pop();
+		while(returned != null){
+			System.out.println("Stack returned: "+returned.getData());
+			s.print();
+			returned = s.pop();
+		}
 	}
 }

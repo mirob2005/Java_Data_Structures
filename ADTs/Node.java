@@ -13,4 +13,7 @@ public class Node<K> {
 	public Node getNext(){
 		return this.next;
 	}
+	public void setNext(Node nextNode){
+		this.next = nextNode;
+	}
 }
