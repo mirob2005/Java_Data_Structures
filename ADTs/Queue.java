@@ -1,3 +1,14 @@
+/*
+ * Michael Robertson
+ * mirob2005@gmail.com
+ * Completed: 6/3/13
+ *
+ * Queue.java 
+ * Uses the Node class in a linked list.
+ * EnQueue adds the node to the end of the linked list.
+ * DeQueue removes and returns the head node from the list.
+ * 
+ */
 public class Queue{
 	private Node head;
 	

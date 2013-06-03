@@ -1,3 +1,13 @@
+/*
+ * Michael Robertson
+ * mirob2005@gmail.com
+ * Completed: 6/3/13
+ *
+ * Stack.java 
+ * Uses the node class in a linked list
+ * Push/Pop operation only affects the head of the list
+ * 
+ */
 public class Stack{
 	private Node head;
 	public Stack(){

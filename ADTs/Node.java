@@ -1,3 +1,12 @@
+/*
+ * Michael Robertson
+ * mirob2005@gmail.com
+ * Completed: 6/3/13
+ *
+ * Node.java 
+ * Object currently used in Queue.java and Stack.java
+ * 
+ */
 public class Node<K> {
 	private K data;
 	private Node next;
