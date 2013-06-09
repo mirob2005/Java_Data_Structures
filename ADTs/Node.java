@@ -7,6 +7,8 @@
  * Object currently used in Queue.java and Stack.java
  * 
  */
+package ADTs;
+ 
 public class Node<K> {
 	private K data;
 	private Node next;

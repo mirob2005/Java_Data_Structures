@@ -9,6 +9,8 @@
  * DeQueue removes and returns the head node from the list.
  * 
  */
+package ADTs;
+ 
 public class Queue{
 	private Node head;
 	

@@ -8,6 +8,8 @@
  * Push/Pop operation only affects the head of the list
  * 
  */
+package ADTs;
+
 public class Stack{
 	private Node head;
 	public Stack(){

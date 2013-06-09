@@ -1,4 +1,14 @@
-package binary_heap_array_structure;
+/*
+ * Michael Robertson
+ * mirob2005@gmail.com
+ * Completed: 6/9/13
+ *
+ * Binary_Heap_Array_StructureTest.java
+ * Set of JUnit tests to test Binary_Heap_Array_Structure.java
+ * 
+ */
+
+package ADTs;
 
 import org.junit.After;
 import org.junit.AfterClass;
