@@ -1,3 +1,5 @@
+package binary_heap_array_structure;
+
 /*
  * Michael Robertson
  * mirob2005@gmail.com
@@ -45,7 +47,9 @@ class Binary_Heap_Array_Structure<K extends Comparable<K>> {
 		K deleted = this.list.get(0);
 		this.list.set(0,this.list.get(this.list.size()-1));
 		this.list.remove(this.list.size()-1);
-		this.heapifyDown(0);
+                if(!this.list.isEmpty()){
+                    this.heapifyDown(0);
+                }
 		return deleted;
 	}
 	public void heapifyDown(int index){
@@ -145,8 +149,11 @@ class Binary_Heap_Array_Structure<K extends Comparable<K>> {
 			return null;
 		}
 	}
+        public List<K> getArray(){
+            return this.list;
+        }
 	public static void main(String[] args){
-		Binary_Heap_Array_Structure <Integer>bh = new Binary_Heap_Array_Structure<Integer>();
+		Binary_Heap_Array_Structure <Integer>bh = new Binary_Heap_Array_Structure<>();
 		bh.insert(3);
 		bh.print();
 		bh.insert(1);
@@ -161,7 +168,7 @@ class Binary_Heap_Array_Structure<K extends Comparable<K>> {
 		bh.print();
 		bh.traverseBFS();
 		
-		Binary_Heap_Array_Structure <String>bhs = new Binary_Heap_Array_Structure<String>();
+		Binary_Heap_Array_Structure <String>bhs = new Binary_Heap_Array_Structure<>();
 		bhs.insert("Three");
 		bhs.print();
 		bhs.insert("ONe");
