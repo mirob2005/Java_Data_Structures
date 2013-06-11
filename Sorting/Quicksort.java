@@ -1,41 +1,34 @@
 package Sorting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Quicksort {
-    public static int[] quicksort(int[] array){
-        int length = array.length;
+    public static <T extends Comparable <T>> List<T> quicksort(List<T> array){
+        int length = array.size();
         if(length <=1){
             return array;
         }
-        int pivot = array[(int)length/2];
-        int[] less = new int[length];
-        int[] more = new int[length];
-        int lessCount = 0;
-        int moreCount = 0;
+        T pivot = array.get((int)length/2);
+        List<T> less = new ArrayList<>();
+        List<T> more = new ArrayList<>();
         
         for(int i = 0; i <length;i++){
             if(i == (int)length/2)
                 continue;
-            if(array[i]<=pivot){
-                less[lessCount] = array[i];
-                lessCount++;
+            if(array.get(i).compareTo(pivot)<=0){
+                less.add(array.get(i));
             }
             else{
-                more[moreCount] = array[i];
-                moreCount++;
+                more.add(array.get(i));
             }
         }
-        int[] low = new int[lessCount];
-        System.arraycopy(less, 0, low, 0, lessCount);
-        int[] high = new int[moreCount];
-        System.arraycopy(more, 0, high, 0, moreCount);
-
-        low = quicksort(low);
-        high = quicksort(high);
-        
-        int[] returnMe = new int[length];
-        System.arraycopy(low, 0, returnMe, 0, low.length);
-        returnMe[low.length] = pivot;
-        System.arraycopy(high, 0, returnMe, low.length+1, high.length);
+        less = quicksort(less);
+        more = quicksort(more);
+        List<T> returnMe = new ArrayList<>();
+        returnMe.addAll(less);
+        returnMe.add(pivot);
+        returnMe.addAll(more);
         return returnMe;
     }
 }
