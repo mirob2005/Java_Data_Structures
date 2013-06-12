@@ -75,7 +75,7 @@ public class BST{
             this.root = null;
         }
         else{
-            if(root == root.getParent().getLeft()){
+            if(root.isLeftChild()){
                 root.getParent().setLeft(null);
                 root.setParent(null);
             }
@@ -126,7 +126,7 @@ public class BST{
             Node right = root.getRight();
             right.setParent(root.getParent());
             root.setRight(null);
-            if(root == root.getParent().getLeft()){
+            if(root.isLeftChild()){
                 root.getParent().setLeft(right);
             }
             else{
@@ -138,7 +138,7 @@ public class BST{
             Node left = root.getLeft();
             left.setParent(root.getParent());
             root.setLeft(null);
-            if(root == root.getParent().getLeft()){
+            if(root.isLeftChild()){
                 root.getParent().setLeft(left);
             }
             else{
@@ -152,13 +152,13 @@ public class BST{
             while(replace.getRight()!=null){
                 replace = replace.getRight();
             }
-            if(root == root.getParent().getLeft()){
+            if(root.isLeftChild()){
                 root.getParent().setLeft(replace);
             }
             else{
                 root.getParent().setRight(replace);
             }
-            if(replace == replace.getParent().getLeft()){
+            if(replace.isLeftChild()){
                 replace.getParent().setLeft(replace.getLeft());
             }
             else{
@@ -226,10 +226,50 @@ public class BST{
         return root.getData();
     }
     public BST copyTree(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        BST copy = new BST();
+        copy.root = new Node(this.root.getData(),null);
+        this.copyNode(copy.root, this.root);
+        return copy;
+    }
+    private void copyNode(Node copyRoot, Node root){
+        // Traverse Preorder
+        if(root.getLeft()!=null){
+            copyRoot.setLeft(new Node(root.getLeft().getData(),copyRoot));
+            this.copyNode(copyRoot.getLeft(),root.getLeft());
+        }
+        if(root.getRight()!=null){
+            copyRoot.setRight(new Node(root.getRight().getData(),copyRoot));
+            this.copyNode(copyRoot.getRight(),root.getRight());
+        }
     }
     public void deleteTree(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.deleteNode(this.root);
+    }
+    private void deleteNode(Node root){
+        //Traverse Postorder
+        if(root.getLeft()!=null){
+            this.deleteNode(root.getLeft());
+        }
+        if(root.getRight()!=null){
+            this.deleteNode(root.getRight());
+        }
+        this.clearData(root);
+    }
+    private void clearData(Node root){
+        System.out.println("Deleting "+root.getData());
+        root.setData(null);
+        if(root.getParent()!=null){
+            if(root.isLeftChild()){
+                root.getParent().setLeft(null);
+            }
+            else{
+                root.getParent().setRight(null);
+            }
+        }
+        else{
+            this.root = null;
+        }
+        root.setParent(null);
     }
     public void traverseDFSpreorder(){
         System.out.println("Traversing tree in preorder");

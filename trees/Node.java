@@ -20,6 +20,9 @@ public class Node{
     public void setParent(Node parent){
         this.parent = parent;
     }
+    public void setData(Comparable data){
+        this.data = data;
+    }
     public Node getLeft(){
         return this.left;
     }
@@ -31,5 +34,11 @@ public class Node{
     }
     public Comparable getData(){
         return this.data;
+    }
+    public boolean isLeftChild(){
+        return this == this.parent.left;
+    }
+    public boolean isRightChild(){
+        return this == this.parent.right;
     }
 }
