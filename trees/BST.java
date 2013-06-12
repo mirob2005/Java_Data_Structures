@@ -40,16 +40,140 @@ public class BST{
         }
     }
     public boolean delete(Comparable data){
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(this.root == null){
+            return false;
+        }
+        return this.deleteData(data, this.root);
+    }
+    private boolean deleteData(Comparable data, Node root){
+        if(root.getData()==data){
+            if(root.getLeft()==null && root.getRight()==null){
+                return this.deleteLeaf(root);
+            }
+            else if(root == this.root){
+                return this.deleteRoot(root);
+            }
+            else{
+                return this.deleteInternal(root);
+            }
+        }
+        if(root.getData().compareTo(data)<0){
+            if(root.getRight()==null){
+                return false;
+            }
+            return this.deleteData(data, root.getRight());
+        }
+        else{
+            if(root.getLeft()==null){
+                return false;
+            }
+            return this.deleteData(data, root.getLeft());
+        }
+    }
+    private boolean deleteLeaf(Node root){
+        if(root == this.root){
+            this.root = null;
+        }
+        if(root == root.getParent().getLeft()){
+            root.getParent().setLeft(null);
+            root.setParent(null);
+        }
+        else{
+            root.getParent().setRight(null);
+            root.setParent(null);
+        }
+        return true;
+    }
+    private boolean deleteRoot(Node root){
+        if(root.getLeft()==null){
+            Node right = root.getRight();
+            right.setParent(null);
+            root.setRight(null);
+            this.root = right;
+        }
+        else if(root.getRight()==null){
+            Node left = root.getLeft();
+            left.setParent(null);
+            root.setLeft(null);
+            this.root = left;
+        }
+        else{
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+        return true;
+    }
+    private boolean deleteInternal(Node root){
+        if(root.getLeft()==null){
+            Node right = root.getRight();
+            right.setParent(root.getParent());
+            root.setRight(null);
+            if(root == root.getParent().getLeft()){
+                root.getParent().setLeft(right);
+            }
+            else{
+                root.getParent().setRight(right);
+            }
+            root.setParent(null);
+        }
+        else if(root.getRight()==null){
+            Node left = root.getLeft();
+            left.setParent(root.getParent());
+            root.setLeft(null);
+            if(root == root.getParent().getLeft()){
+                root.getParent().setLeft(left);
+            }
+            else{
+                root.getParent().setRight(left);
+            }
+            root.setParent(null);
+        }
+        else{
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+        return true;
     }
     public boolean find(Comparable data){
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(this.root == null){
+            return false;
+        }
+        return findData(data,this.root);
+    }
+    private boolean findData(Comparable data, Node root){
+        if(root.getData()==data){
+            return true;
+        }
+        if(root.getData().compareTo(data)<0){
+            if(root.getRight()==null){
+                return false;
+            }
+            return this.findData(data, root.getRight());
+        }
+        else{
+            if(root.getLeft()==null){
+                return false;
+            }
+            return this.findData(data, root.getLeft());
+        }
     }
     public Comparable findMin(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(this.root == null){
+            return null;
+        }
+        Node root = this.root;
+        while(root.getLeft()!=null){
+            root = root.getLeft();
+        }
+        return root.getData();
     }
     public Comparable findMax(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(this.root == null){
+            return null;
+        }
+        Node root = this.root;
+        while(root.getRight()!=null){
+            root = root.getRight();
+        }
+        return root.getData();
     }
     public BST copyTree(){
         throw new UnsupportedOperationException("Not supported yet.");
