@@ -74,13 +74,15 @@ public class BST{
         if(root == this.root){
             this.root = null;
         }
-        if(root == root.getParent().getLeft()){
-            root.getParent().setLeft(null);
-            root.setParent(null);
-        }
         else{
-            root.getParent().setRight(null);
-            root.setParent(null);
+            if(root == root.getParent().getLeft()){
+                root.getParent().setLeft(null);
+                root.setParent(null);
+            }
+            else{
+                root.getParent().setRight(null);
+                root.setParent(null);
+            }
         }
         return true;
     }
@@ -98,7 +100,24 @@ public class BST{
             this.root = left;
         }
         else{
-            throw new UnsupportedOperationException("Not supported yet.");
+            Node replace = root.getLeft();
+            //Inorder predecessor
+            while(replace.getRight()!=null){
+                replace = replace.getRight();
+            }
+            if(replace.getLeft()!=null){
+                Node grandchild = replace.getLeft();
+                replace.getParent().setRight(grandchild);
+                grandchild.setParent(replace.getParent());
+            }
+            replace.setLeft(root.getLeft());
+            replace.setRight(root.getRight());
+            root.getLeft().setParent(replace);
+            root.getRight().setParent(replace);
+            root.setLeft(null);
+            root.setRight(null);
+            this.root = replace;
+            replace.setParent(null);
         }
         return true;
     }
@@ -128,7 +147,38 @@ public class BST{
             root.setParent(null);
         }
         else{
-            throw new UnsupportedOperationException("Not supported yet.");
+            Node replace = root.getLeft();
+            //Inorder predecessor
+            while(replace.getRight()!=null){
+                replace = replace.getRight();
+            }
+            if(root == root.getParent().getLeft()){
+                root.getParent().setLeft(replace);
+            }
+            else{
+                root.getParent().setRight(replace);
+            }
+            if(replace == replace.getParent().getLeft()){
+                replace.getParent().setLeft(replace.getLeft());
+            }
+            else{
+                replace.getParent().setRight(replace.getLeft());
+            }
+            if(replace.getLeft()!=null){
+                replace.getLeft().setParent(replace.getParent());
+            }
+            replace.setParent(root.getParent());
+            root.setParent(null);
+            replace.setRight(root.getRight());
+            if(replace.getRight()!=null){
+                replace.getRight().setParent(replace);
+            }
+            replace.setLeft(root.getLeft());
+            if(replace.getLeft()!=null){
+                replace.getLeft().setParent(replace);
+            }
+            root.setRight(null);
+            root.setLeft(null);
         }
         return true;
     }
@@ -236,6 +286,37 @@ public class BST{
                 q.add(current.getRight());
             }
             current = q.poll();
+        }
+        System.out.println();
+    }
+    public void printBranches(){
+        System.out.println("Traversing tree branches");
+        Queue<Node> q = new LinkedList<>();
+        Node current = this.root;
+        while(current != null){
+            if(current.getParent()!=null){
+                System.out.print(current.getParent().getData());
+            }
+            else{
+                System.out.print("null");
+            }
+            System.out.print("->"+current.getData()+"->");
+            if(current.getLeft()!=null){
+                q.add(current.getLeft());
+                System.out.print(current.getLeft().getData());
+            }
+            else{
+                System.out.print("null");
+            }
+            if(current.getRight()!=null){
+                q.add(current.getRight());
+                System.out.print("|"+current.getRight().getData());
+            }
+            else{
+                System.out.print("|null");
+            }
+            current = q.poll();
+            System.out.println();
         }
         System.out.println();
     }
