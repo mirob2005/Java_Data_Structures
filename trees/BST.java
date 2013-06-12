@@ -105,15 +105,24 @@ public class BST{
             while(replace.getRight()!=null){
                 replace = replace.getRight();
             }
-            if(replace.getLeft()!=null){
-                Node grandchild = replace.getLeft();
-                replace.getParent().setRight(grandchild);
-                grandchild.setParent(replace.getParent());
+            if(replace != root.getLeft() && replace !=root.getRight()){
+                if(replace.getLeft()!=null){
+                    Node grandchild = replace.getLeft();
+                    replace.getParent().setRight(grandchild);
+                    grandchild.setParent(replace.getParent());
+                }
+                else{
+                    replace.getParent().setRight(null);
+                }
             }
-            replace.setLeft(root.getLeft());
-            replace.setRight(root.getRight());
-            root.getLeft().setParent(replace);
-            root.getRight().setParent(replace);
+            if(replace != root.getLeft()){
+                replace.setLeft(root.getLeft());
+                root.getLeft().setParent(replace);
+            }
+            if(replace != root.getRight()){
+                replace.setRight(root.getRight());
+                root.getRight().setParent(replace);
+            }
             root.setLeft(null);
             root.setRight(null);
             this.root = replace;
