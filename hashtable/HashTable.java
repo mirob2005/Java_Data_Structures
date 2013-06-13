@@ -50,8 +50,7 @@ public class HashTable<K,V> {
         }
     }
     public void add(K key,V value){
-        String keyStr = key.toString();
-        int hashCode = this.getHash(keyStr);
+        int hashCode = this.getHash(key);
         boolean found = false;
         for(Entry e:this.buckets[hashCode%this.numBuckets]){
             if(e.matchBoth(key, value)){
@@ -67,16 +66,58 @@ public class HashTable<K,V> {
         if(!found)this.buckets[hashCode%this.numBuckets].add(new Entry(key,value));
     }
     public void delete(K key){
-        throw new UnsupportedOperationException("Feature Not Yet Implemented!");
+        int hashCode = this.getHash(key);
+        boolean found = false;
+        for(Entry e:this.buckets[hashCode%this.numBuckets]){
+            if(e.matchKey(key)){
+                this.buckets[hashCode%this.numBuckets].remove(e);
+                found = true;
+                break;
+            }
+        }
+        if(!found){
+            this.printErrorMsg(key);
+        }
     }
     public void updateValue(K key, V value){
-        throw new UnsupportedOperationException("Feature Not Yet Implemented!");
+        Entry found = this.find(key);
+        if(found!=null){
+            found.updateValue(value);
+        }
     }
     public V lookUp(K key){
-        throw new UnsupportedOperationException("Feature Not Yet Implemented!");
+        Entry found = this.find(key);
+        if(found!=null){
+            return (V)found.getValue();
+        }
+        else{
+            return null;
+        }
     }
-    private int getHash(String key){
-        char[] carray = key.toCharArray();
+    private Entry find(K key){
+        int hashCode = this.getHash(key);
+        for(Entry e:this.buckets[hashCode%this.numBuckets]){
+            if(e.matchKey(key)){
+                return e;
+            }
+        }
+        this.printErrorMsg(key);
+        return null;
+    }
+    private void printErrorMsg(K key){
+        if(key instanceof String){
+            System.out.println("Key \""+key+"\" does NOT exist!");
+        }
+        else if(key instanceof Character){
+            System.out.println("Key '"+key+"' does NOT exist!");
+        }
+        else{
+            System.out.println("Key "+key+" does NOT exist!");
+        }
+    }
+    private int getHash(K key){
+        String keyStr = key.toString();
+        char[] carray = keyStr.toCharArray();
         int hashCode = 0;
         int power = 0;
         for(char c:carray){
@@ -97,5 +138,12 @@ public class HashTable<K,V> {
         ht.add('1', 22);
         ht.add("1", 23.1);
         ht.printTable();
+        System.out.println();
+        ht.delete('1');
+        ht.printTable();
+        System.out.println();
+        ht.updateValue(1, 1);
+        ht.printTable();
+        System.out.println(ht.lookUp("1"));
     }
 }
