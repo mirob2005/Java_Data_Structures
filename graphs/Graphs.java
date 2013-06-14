@@ -32,5 +32,17 @@ public class Graphs {
         System.out.println("Updating edge from 6 to 2");
         al.updateEdge(6, 2, 1);
         al.printVertexList();
+        al.printBFS(6);
+        al.computeShortestPath(6, 5);
+        System.out.println("Removing edge from 2 to 4");
+        al.removeEdge(2, 4);
+        al.printVertexList();
+        al.printBFS(6);
+        al.computeShortestPath(6, 5);
+        System.out.println("Removing edge from 3 to 4");
+        al.removeEdge(3, 4);
+        al.printVertexList();
+        al.printBFS(6);
+        al.computeShortestPath(6, 5);
     }
 }

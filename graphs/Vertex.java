@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vertex {
-    class Edge{
+    public class Edge{
         private Vertex dest;
         private int weight;
         public Edge(Vertex dest, int weight){
@@ -21,35 +21,17 @@ public class Vertex {
             this.weight = weight;
         }
     }
-    class Visit{
-        //For exploration 0 - not visited, 1 - visted, not explored, 2 - explored
-        private byte visit;
-        public Visit(){
-            this.visit = 0;
-        }
-        public boolean visited(){
-            return (this.visit==1 || this.visit ==2);
-        }
-        public boolean explored(){
-            return this.visit==2;
-        }
-        public void visit(){
-            this.visit = 1;
-        }
-        public void explore(){
-            this.visit = 2;
-        }
-    }
     private String name;
     private List<Edge> next;
-    private Visit node;
+    //For exploration 0 - not visited, 1 - visted, not explored, 2 - explored
+    private byte visit;
     private Vertex predecessor;
     private int distance;
     
     public Vertex(String name){
         this.name = name;
         this.next = new ArrayList<>();
-        this.node = new Visit();
+        this.visit = 0;
         this.distance = Integer.MAX_VALUE;
         this.predecessor = null;
     }
@@ -67,6 +49,9 @@ public class Vertex {
             returnStr += "None";
         }
         return returnStr;
+    }
+    public void print(){
+        System.out.println("Vertex "+this.name+" Distance: "+this.distance);
     }
     public void addEdge(Vertex dest, int weight){
         this.next.add(new Edge(dest,weight));
@@ -101,5 +86,41 @@ public class Vertex {
     }
     public String getName(){
         return this.name;
+    }
+    public List<Edge> getEdges(){
+        return this.next;
+    }
+    public void unexplore(){
+        this.visit = 0;
+    }
+    public boolean visited(){
+        return (this.visit==1 || this.visit ==2);
+    }
+    public boolean explored(){
+        return this.visit==2;
+    }
+    public void visit(){
+        this.visit = 1;
+    }
+    public void explore(){
+        this.visit = 2;
+    }
+    public void clearDistance(){
+        this.distance = Integer.MAX_VALUE;
+    }
+    public void setDistance(int dist){
+        this.distance = dist;
+    }
+    public int getDistance(){
+        return this.distance;
+    }
+    public void clearPredecessor(){
+        this.predecessor = null;
+    }
+    public void setPredecessor(Vertex pre){
+        this.predecessor = pre;
+    }
+    public Vertex getPredecessor(){
+        return this.predecessor;
     }
 }
