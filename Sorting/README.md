@@ -1,5 +1,3 @@
-## Run Sorting to run all implemented sorting methods.
-
 # *Sorting:*
 ## Merge Sorts:
 ### MergeSort:
@@ -20,3 +18,6 @@
 - O(n^2) - worst/AVG case, O(n) - best case (already sorted list)
 - O(1) auxilary - worst case space complexity
 
+## Use:
+### Run Sorting to run all implemented sorting methods.
+- Tests the sorts on lists of: strings, int, doubles, and bytes.

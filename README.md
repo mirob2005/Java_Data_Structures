@@ -6,6 +6,43 @@ Java_Data_Structures
 - Stack (push/pop at head)
 - Priority Queue (uses an array-based Binary Heap)
 
+## *Binary Heap Operations:*
+- traverseBFS
+- insert (with heapifyUp to ensure heap property)
+- delete (with heapifyDown to ensure heap property)
+- peek (get max value)
+- copyHeap
+
+### *Types:*
+- Array Structure
+
+JUnits Tests to test each operation and to ensure proper tracking
+of next insert/delete location to ensure shape property
+
+## *Binary Search Tree Operations:*
+- add - recursive
+- find - recursive
+- delete - recursive
+- traverseBFS - iterative (uses a queue)
+- traverseDFSpreorder - recursive
+- traverseDFSinorder - recursive
+- traverseDFSpostorder - recursive
+- copyTree - recursive
+- deleteTree - recursive
+- findMin - iterative
+- findMax - iterative
+
+## *Hash Table Operations:*
+- add
+- updateValue
+- delete
+- deleteAll
+- lookUp
+- getHash
+
+### *Types:*
+- Separate Chaining Collision resolution using ArrayLists
+
 ## *Sorting:*
 ### Run Sorting to run all implemented sorting methods.
 ### Merge Sorts:
