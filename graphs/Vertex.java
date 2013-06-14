@@ -4,6 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vertex {
+    class Edge{
+        private Vertex dest;
+        private int weight;
+        public Edge(Vertex dest, int weight){
+           this.dest = dest;
+           this.weight = weight;
+        }
+        public Vertex getDest(){
+            return this.dest;
+        }
+        public int getWeight(){
+            return this.weight;
+        }
+        public void updateWeight(int weight){
+            this.weight = weight;
+        }
+    }
     class Visit{
         //For exploration 0 - not visited, 1 - visted, not explored, 2 - explored
         private byte visit;
@@ -24,7 +41,7 @@ public class Vertex {
         }
     }
     private String name;
-    private List<Vertex> next;
+    private List<Edge> next;
     private Visit node;
     private Vertex predecessor;
     private int distance;
@@ -41,8 +58,8 @@ public class Vertex {
         String returnStr = "";
         returnStr += this.name + " -> ";
         if(!this.next.isEmpty()){
-            for(Vertex v: this.next){
-                returnStr += v.getName() + ", ";
+            for(Edge e: this.next){
+                returnStr += e.getDest().getName() + "("+e.getWeight()+"), ";
             }
             returnStr = returnStr.substring(0, returnStr.length()-2);
         }
@@ -51,11 +68,36 @@ public class Vertex {
         }
         return returnStr;
     }
-    public void addEdge(Vertex dest){
-        this.next.add(dest);
+    public void addEdge(Vertex dest, int weight){
+        this.next.add(new Edge(dest,weight));
     }
-    public boolean findEdge(Vertex dest){
-        return this.next.contains(dest);
+    public Edge findEdge(Vertex dest){
+        for(Edge e:this.next){
+            if(e.getDest()==dest){
+                return e;
+            }
+        }
+        return null;
+    }
+    public void updateEdge(Vertex y, int weight) {
+        for(Edge e:this.next){
+            if(e.getDest()==y){
+                e.updateWeight(weight);
+            }
+        }
+    }
+    public void removeEdge(Vertex dest){
+        Edge removeMe = null;
+        for(Edge e:this.next){
+            if(e.getDest()==dest){
+                removeMe = e;
+                break;
+            }
+        }
+        this.next.remove(removeMe);
+    }
+    public void removeAllEdges() {
+        this.next.clear();
     }
     public String getName(){
         return this.name;
