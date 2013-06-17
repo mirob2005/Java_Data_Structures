@@ -2,14 +2,20 @@ package graphs;
 
 import graphs.Vertex.Edge;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 public class AdjacencyList<K>{
     private List<Vertex> vertexList;
+    private boolean cycleExists;
+    //Used as a flag to know to print DFS ordering or not when traversing
+    private boolean print;
     public AdjacencyList(){
         this.vertexList = new ArrayList<>();
+        this.cycleExists = false;
+        this.print = false;
     }
     public void addVertex(K name){
         if(this.findVertex(name) != null){
@@ -137,23 +143,27 @@ public class AdjacencyList<K>{
         }
         return BFS;
     }
-    public void traverseDFS(){
+    public void printDFS(){
+        this.print = true;
+        this.traverseDFS();
+    }
+    private void traverseDFS(){
         for(Vertex v:this.vertexList){
             v.unexplore();
             v.clearDistance();
             v.clearPredecessor();            
         }
-        System.out.println("Traversing graph DFS:");
+        if(this.print)System.out.println("Traversing graph DFS:");
         for(Vertex v:this.vertexList){
             if(!v.visited()){
                 this.DFS(v);
             }
         }
-        System.out.println();
+        if(this.print)System.out.println();
     }
     private void DFS(Vertex source){
         source.visit();
-        System.out.print("("+source.getName()+" ");
+        if(this.print)System.out.print("("+source.getName()+" ");
         for(Edge e:source.getEdges()){
             //Edge is a tree edge
             if(!e.getDest().visited()){
@@ -161,13 +171,14 @@ public class AdjacencyList<K>{
             }
             //Cycle Exists - edge is a back edge
             else if(e.getDest().visited()&&!e.getDest().explored()){
+                this.cycleExists = true;
             }
             //Edge is a forward/cross edge
             else{
             }
         }
         source.explore();
-        System.out.print(" "+source.getName()+")");
+        if(this.print)System.out.print(" "+source.getName()+")");
     }
     public AdjacencyList copyGraph(){
         System.out.println("Copying graph");
@@ -245,6 +256,38 @@ public class AdjacencyList<K>{
         else{
             this.printShortestPath(src, dest.getPredecessor());
         }
+    }
+    public boolean isDAG(){
+        this.print = false;
+        this.traverseDFS();
+        return !this.cycleExists;
+    }
+    public void topologicalSort(){
+        List<String> order = new ArrayList<>();
+        if(this.isDAG()){
+            for(Vertex v:this.vertexList){
+                v.unexplore();
+            }
+            for(Vertex v:this.vertexList){
+                if(!v.visited()){
+                    this.DFSorder(order, v);
+                }
+            }
+            Collections.reverse(order);
+            System.out.println(order);
+        }
+        else{
+            System.out.println("Graph must not contain cycles in order to get a topological sort");
+        }
+    }
+    private void DFSorder(List<String> order, Vertex source){
+        for(Edge e:source.getEdges()){
+            if(!e.getDest().visited()){
+                this.DFSorder(order, e.getDest());
+            }
+        }
+        source.explore();
+        order.add(source.getName());
     }
     private void missingVertex(K vertex){
         System.out.println("Vertex "+vertex.toString()+" does NOT exist!");

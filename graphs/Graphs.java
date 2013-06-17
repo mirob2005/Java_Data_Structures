@@ -17,7 +17,10 @@ public class Graphs {
         al.printVertexList();
         al.addEdge(4, 5, 2);
         al.printVertexList();
-        al.traverseDFS();
+        al.printDFS();
+        System.out.println("Graph is a DAG: "+al.isDAG());
+        System.out.println("Topological sort:");
+        al.topologicalSort();
         AdjacencyList copy = al.copyGraph();
         System.out.println("Removing vertex 1 in original");
         al.removeVertex(1);
@@ -49,16 +52,28 @@ public class Graphs {
         al.printVertexList();
         al.printBFS(6);
         al.computeShortestPath(6, 5);
-        al.traverseDFS();
+        al.printDFS();
         System.out.println("Copied Graph:");
         copy.printVertexList();
         copy.printBFS(1);
-        copy.traverseDFS();
+        copy.printDFS();
         System.out.println("Deleting the copy");
         copy.deleteGraph();
         System.out.println("Copied Graph:");
         copy.printVertexList();
         System.out.println("Original Graph:");
         al.printVertexList();
+        System.out.println("Adding edges to create a cycle");
+        al.addEdge(2, 4, 3);
+        al.addEdge(5, 6, 4);
+        al.printVertexList();
+        System.out.println("Graph is a DAG: "+al.isDAG());
+        al.topologicalSort();
+        System.out.println("Adding self loop in copy");
+        copy.addVertex(1);
+        copy.addEdge(1, 1, 2);
+        copy.printVertexList();
+        copy.printBFS(1);
+        System.out.println("Graph is a DAG: "+copy.isDAG());
     }
 }
