@@ -20,6 +20,11 @@ public class Vertex {
         public void updateWeight(int weight){
             this.weight = weight;
         }
+        @Override
+        public String toString(){
+            String returnStr = "->"+this.dest.getName();
+            return returnStr;
+        }
     }
     private String name;
     private List<Edge> next;

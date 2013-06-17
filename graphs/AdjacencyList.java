@@ -138,13 +138,78 @@ public class AdjacencyList<K>{
         return BFS;
     }
     public void traverseDFS(){
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        for(Vertex v:this.vertexList){
+            v.unexplore();
+            v.clearDistance();
+            v.clearPredecessor();            
+        }
+        System.out.println("Traversing graph DFS:");
+        for(Vertex v:this.vertexList){
+            if(!v.visited()){
+                this.DFS(v);
+            }
+        }
+        System.out.println();
+    }
+    private void DFS(Vertex source){
+        source.visit();
+        System.out.print("("+source.getName()+" ");
+        for(Edge e:source.getEdges()){
+            //Edge is a tree edge
+            if(!e.getDest().visited()){
+                this.DFS(e.getDest());
+            }
+            //Cycle Exists - edge is a back edge
+            else if(e.getDest().visited()&&!e.getDest().explored()){
+            }
+            //Edge is a forward/cross edge
+            else{
+            }
+        }
+        source.explore();
+        System.out.print(" "+source.getName()+")");
     }
     public AdjacencyList copyGraph(){
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        System.out.println("Copying graph");
+        AdjacencyList copy = new AdjacencyList();
+        for(Vertex v:this.vertexList){
+            v.unexplore();
+            v.clearDistance();
+            v.clearPredecessor();            
+        }
+        for(Vertex v:this.vertexList){
+            if(!v.visited()){
+                System.out.println("Copying vertex: "+v.getName());
+                copy.addVertex(v.getName());
+                this.copyVertex(copy,v);
+            }
+        }
+        return copy;
+    }
+    private void copyVertex(AdjacencyList copy, Vertex source){
+        source.visit();
+        for(Edge e:source.getEdges()){
+            if(!e.getDest().visited()){
+                System.out.println("Copying vertex: "+e.getDest().getName());
+                copy.addVertex(e.getDest().getName());
+                System.out.println("Copying edge from: "+source.getName()+" to "+ e.getDest().getName());
+                copy.addEdge(source.getName(), e.getDest().getName(), e.getWeight());
+                this.copyVertex(copy,e.getDest());
+            }
+            else{
+                System.out.println("Copying edge from: "+source.getName()+" to "+ e.getDest().getName());
+                copy.addEdge(source.getName(), e.getDest().getName(), e.getWeight());
+            }
+        }
+        source.explore();
     }
     public void deleteGraph(){
-        throw new UnsupportedOperationException("Not Yet Implemented!");
+        System.out.println("Deleting Graph");
+        while(!this.vertexList.isEmpty()){
+            Vertex v = this.vertexList.get(0);
+            System.out.println("Deleting "+v.getName());
+            this.removeVertex((K) v.getName());
+        }
     }
     public void printVertexList(){
         for(Vertex v:this.vertexList){
