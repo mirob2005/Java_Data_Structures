@@ -43,6 +43,35 @@ of next insert/delete location to ensure shape property
 ### *Types:*
 - Separate Chaining Collision resolution using ArrayLists
 
+## *Graphs:*
+### Run Graphs to run a sample adjacency list with outputs of the different operations.
+### *Adjacency List:*
+- Vertices are stored in an arraylist. Each vertex has an arraylist of edges to neighoring vertices. 
+- Supports directed graphs.
+
+- *Operations:*
+- addVertex
+- addEdge
+- removeVertex
+- removeEdge
+- updateEdge
+- copyGraph
+- deleteGraph
+
+- *Algorithm:*
+*Breadth First Search*
+- traverseBFS
+- shortestPath
+
+*Depth First Search*
+- DAG test
+- traverseDFS
+- topological sort
+- Classification of edges into (in comments): 
+1)Tree Edges 
+2)Back Edges 
+3)Forward/Cross Edges
+
 ## *Sorting:*
 ### Run Sorting to run all implemented sorting methods.
 ### Merge Sorts:
