@@ -1,7 +1,6 @@
 # *Graphs:*
 
-## Use:
-### Run Graphs to run a sample adjacency list with outputs of the different operations.
+### Use: Run Graphs to run a sample adjacency list with outputs of the different operations.
 
 <table>
   <tr>
@@ -34,7 +33,7 @@
 - copyGraph
 - deleteGraph
 
-### *Algorithm:*
+### *Algorithms:*
 *Breadth First Search*
 - traverseBFS
 - shortestPath
