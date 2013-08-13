@@ -44,12 +44,12 @@ of next insert/delete location to ensure shape property
 - Separate Chaining Collision resolution using ArrayLists
 
 ## *Graphs:*
-### Run Graphs to run a sample adjacency list with outputs of the different operations.
 ### *Adjacency List:*
+- Use: Run Graphs to run a sample adjacency list with outputs of the different operations.
 - Vertices are stored in an arraylist. Each vertex has an arraylist of edges to neighoring vertices. 
 - Supports directed graphs.
 
-- *Operations:*
+*Operations:*
 - addVertex
 - addEdge
 - removeVertex
@@ -58,7 +58,8 @@ of next insert/delete location to ensure shape property
 - copyGraph
 - deleteGraph
 
-- *Algorithm:*
+*Implemented Algorithms:*
+
 *Breadth First Search*
 - traverseBFS
 - shortestPath
