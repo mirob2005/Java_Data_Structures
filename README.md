@@ -72,6 +72,21 @@ of next insert/delete location to ensure shape property
 2)Back Edges 
 3)Forward/Cross Edges
 
+## *LinkedList:*
+### Use 'java linkedlist.LinkedList' to run some tests of the operations.
+### *Operations:*
+- addLast
+- addFirst
+- removeFirst
+- removeLast
+- insertAtIndex
+- removeAtIndex
+- getDataAtIndex
+- getIndex
+- peekFront
+- peekBack
+- contains
+
 ## *Sorting:*
 ### Run Sorting to run all implemented sorting methods.
 ### Merge Sorts:
