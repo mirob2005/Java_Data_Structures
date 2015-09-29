@@ -107,5 +107,5 @@ of next insert/delete location to ensure shape property
 ### Insertion Sort:
 - stable, in-place
 - O(n^2) - worst/AVG case, O(n) - best case (already sorted list)
-- O(1) auxilary - worst case space complexity
+- O(1) auxiliary - worst case space complexity
 
